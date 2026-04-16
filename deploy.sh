@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Azure Microservices Deployment Lab - Automation Script (v2 - Fixed)
+# Azure Microservices Deployment Lab - Automation Script (v3 - Southeast Asia)
 # SLIIT - Current Trends in Software Engineering
 
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-# Configuration - Changed to centralus for student policy compliance
+# Configuration - Changed to southeastasia (optimized for SLIIT/Regional students)
 RG_NAME="microservices-rg"
-LOCATION="centralus" 
+LOCATION="southeastasia" 
 ACR_NAME="sliitmicroregistry$(date +%s | cut -c 6-10)" 
 IMAGE_NAME="gateway:v1"
 APP_NAME="gateway"
@@ -22,7 +22,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "${BLUE}=== Azure Microservices Deployment Automation (v2) ===${NC}"
+echo -e "${BLUE}=== Azure Microservices Deployment Automation (v3) ===${NC}"
 
 # Check for Azure CLI
 if ! command -v az &> /dev/null; then
