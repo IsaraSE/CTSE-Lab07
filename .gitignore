@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+
+# MacOS
+.DS_Store
+
+# Static Web App Build Output
+build/
+dist/
+
+# Azure CLI temp files
+.azure/
