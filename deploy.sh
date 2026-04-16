@@ -28,14 +28,23 @@ if ! command -v az &> /dev/null; then
     exit 1
 fi
 
-# 1. Login Verification
-echo -e "${YELLOW}Step 1: Checking Authentication...${NC}"
-az account show --output none
+# 1. Login & Subscription Verification
+echo -e "${YELLOW}Step 1: Checking Authentication and Subscriptions...${NC}"
+az account show --output none 2>/dev/null
 if [ $? -ne 0 ]; then
     echo -e "${RED}Not logged in. Running 'az login'...${NC}"
     az login
 fi
-echo -e "${GREEN}Authenticated successfully.${NC}"
+
+# Check for active subscriptions
+SUBSCRIPTION_COUNT=$(az account list --query "length([])" -o tsv)
+if [ "$SUBSCRIPTION_COUNT" -eq 0 ] || [ -z "$SUBSCRIPTION_COUNT" ]; then
+    echo -e "${RED}Error: No active Azure subscriptions found for this account.${NC}"
+    echo -e "Please ensure you have activated 'Azure for Students' or have a valid billing account."
+    echo -e "Visit: https://azure.microsoft.com/free/students/ to activate."
+    exit 1
+fi
+echo -e "${GREEN}Authenticated with active subscription.${NC}"
 
 # 2. Infrastructure Provisioning
 echo -e "${YELLOW}Step 2: Creating Resource Group and ACR...${NC}"
