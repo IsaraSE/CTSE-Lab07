@@ -1,48 +1,116 @@
 # Azure Microservices Deployment Lab
 
-This project demonstrates a containerized microservices architecture deployed on Microsoft Azure. It was built as part of the SLIIT **Current Trends in Software Engineering (SE4010)** module.
+![Azure Microservices Banner](assets/banner.png)
 
-## Architecture
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Azure](https://img.shields.io/badge/Provider-Azure-0078d4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/)
+[![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Docker](https://img.shields.io/badge/Container-Docker-2496ed?logo=docker&logoColor=white)](https://www.docker.com/)
 
-- **Gateway Service:** A Node.js Express server acting as the API gateway, containerized and deployed on **Azure Container Apps**.
-- **Frontend App:** A premium, responsive web interface hosted on **Azure Static Web Apps**.
-- **Container Registry:** Private Docker images managed via **Azure Container Registry (ACR)**.
+## 🚀 Overview
 
-## Project Structure
+This repository contains a full-stack microservices architecture designed for cloud-native deployment on **Microsoft Azure**. This project was developed for the **SLIIT Current Trends in Software Engineering (SE4010)** module to demonstrate best practices in containerization, service discovery, and cloud orchestration.
 
-```text
-├── gateway/          # API Gateway microservice (Node.js)
-│   ├── Dockerfile    # Container definition
-│   └── server.js     # Express server logic
-├── frontend/         # Static frontend assets
-│   ├── index.html    # Core UI
-│   ├── styles.css    # Premium Glassmorphism styling
-│   └── script.js     # Frontend logic & API interaction
-├── deploy.sh         # Integrated Azure deployment script
-└── README.md         # Project documentation
+### Key Features
+*   **API Gateway:** Robust routing and health monitoring using Express.js.
+*   **Premium Frontend:** Glassmorphism UI with real-time API status tracking.
+*   **Standardized Containers:** Dockerized services optimized for small footprint (`alpine` images).
+*   **Cloud Infrastructure:** Automated provisioning of Resource Groups, Container Registries (ACR), and Container Apps Environment.
+*   **Infrastructure as Code (IaC):** Integrated automation scripts for seamless deployment and cleanup.
+
+---
+
+## 🏗 Architecture
+
+```mermaid
+graph TD
+    User((User)) -->|HTTPS| SWA[Azure Static Web App]
+    SWA -->|API Calls| Gateway[Azure Container App: Gateway]
+    Gateway -->|Health Checks| Heartbeat(Internal Status)
+    Developer -->|Push| GitHub[GitHub Repo]
+    GitHub -->|GitHub Actions| SWA
+    Developer -->|Push| Image[Azure Container Registry]
+    Image -->|Pull| Gateway
 ```
 
-## Getting Started
+---
 
-### Local Development
+## 🛠 Tech Stack
 
-1. **Gateway:**
-   ```bash
-   cd gateway
-   npm install
-   npm start
-   ```
+| Category | Technologies |
+| :--- | :--- |
+| **Cloud Provider** | Microsoft Azure (Container Apps, Static Web Apps, ACR) |
+| **Backend** | Node.js, Express.js |
+| **Frontend** | HTML5, Modern CSS (Glassmorphism), Vanilla JavaScript |
+| **DevOps** | Docker, Azure CLI, GitHub Actions |
+| **Documentation** | Mermaid.js, Markdown, JSDoc |
 
-2. **Frontend:**
-   Simply open `frontend/index.html` in your browser.
+---
 
-### Azure Deployment
+## 🚦 Getting Started
 
-1. Ensure you have the **Azure CLI** and **Docker Desktop** installed.
-2. Run the deployment script:
-   ```bash
-   ./deploy.sh
-   ```
+### Prerequisites
 
-## Author
-SLIIT Student - it22154880
+*   **Azure CLI:** `brew install azure-cli`
+*   **Docker Desktop:** Running locally
+*   **Node.js:** v18.x or later
+
+### Local Setup
+
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/IsaraSE/CTSE-Lab07.git
+    cd CTSE-Lab07
+    ```
+
+2.  **Run Gateway:**
+    ```bash
+    cd gateway
+    npm install
+    npm start
+    ```
+
+3.  **Run Frontend:** Open `frontend/index.html` in your browser.
+
+---
+
+## ☁ Cloud Deployment
+
+### Automated Provisioning
+
+Run the integrated deployment script to build, push, and deploy all Azure resources:
+
+```bash
+./deploy.sh
+```
+
+### Manual Cleanup
+
+To avoid ongoing charges, decommission all resources using the interactive cleanup script:
+
+```bash
+./cleanup.sh
+```
+
+---
+
+## 📸 Screenshots
+
+> [!TIP]
+> Add your live deployment screenshots here to enhance your submission.
+
+| Gateway Status | Frontend UI |
+| :---: | :---: |
+| *[Add Screenshot 1]* | *[Add Screenshot 2]* |
+
+---
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 👤 Author
+
+**Student Name:** it22154880  
+**Course:** SE4010 - Current Trends in Software Engineering  
+**Institution:** SLIIT Faculty of Computing
