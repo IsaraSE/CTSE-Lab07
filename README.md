@@ -11,28 +11,14 @@ This repository implements a production-grade microservices architecture localiz
 
 ## 🏗 System Architecture
 
-I have architected this system to leverage Azure's managed microservices ecosystem. The flow below illustrates the interaction between development, administration, and runtime environments.
-
 ```mermaid
-graph LR
-    subgraph "External Entities"
-        User((End User))
-        Dev["fa:fa-code Developer"]
-    end
-
-    subgraph "Azure Cloud Platform"
-        direction TB
-        SWA["fa:fa-globe Azure Static Web App<br/>(Frontend)"]
-        ACA["fa:fa-server Azure Container App<br/>(API Gateway)"]
-        ACR["fa:fa-database Container Registry<br/>(Storage)"]
-    end
-
-    User -->|HTTPS| SWA
-    SWA -->|REST API Calls| ACA
-    ACA -.->|Pulls Image| ACR
-    Dev -->|Git Push| GitHub["fa:fa-github GitHub Repository"]
-    GitHub -->|CI/CD Pipeline| SWA
-    Dev -->|Docker Push| ACR
+graph TD
+    User --- Frontend
+    Frontend --- Gateway
+    Gateway -.- ACR
+    Developer --- GitHub
+    GitHub -.- Frontend
+    Developer -.- ACR
 ```
 
 ---
