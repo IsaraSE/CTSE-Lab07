@@ -5,18 +5,29 @@
 [![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Docker](https://img.shields.io/badge/Container-Docker-2496ed?logo=docker&logoColor=white)](https://www.docker.com/)
 
-This repository implements a production-grade microservices architecture localized for the **SLIIT SE4010 (Current Trends in Software Engineering)** deployment lab. The project demonstrates the seamless integration of containerized workloads with Microsoft Azure's managed services.
+This repository implements a production-grade microservices architecture localized for the **SLIIT SE4010 (Current Trends in Software Engineering)** deployment lab. The implementation is fully containerized and orchestrated on Microsoft Azure.
+
+---
+
+## 🔗 Live Deployment (Final Output)
+
+Your laboratory submission is now live at the following endpoints:
+
+*   **🌐 Frontend Application:** [https://mango-plant-015c68f00.2.azurestaticapps.net](https://mango-plant-015c68f00.2.azurestaticapps.net)
+*   **📡 API Gateway (Health Check):** [https://gateway.calmbay-7e7116db.centralindia.azurecontainerapps.io/health](https://gateway.calmbay-7e7116db.centralindia.azurecontainerapps.io/health)
 
 ---
 
 ## 🏗 System Architecture
 
+The following diagram illustrates the microservices interaction and the CI/CD pipeline established between GitHub and Azure.
+
 ```mermaid
 graph TD
-    User --- Frontend
-    Frontend --- Gateway
-    Gateway -.- ACR
-    Developer --- GitHub
+    User((User)) --- Frontend[Azure Static Web App]
+    Frontend --- Gateway[Azure Container App: Gateway]
+    Gateway -.- ACR(Azure Container Registry)
+    Developer --- GitHub(GitHub Repository)
     GitHub -.- Frontend
     Developer -.- ACR
 ```
@@ -25,10 +36,10 @@ graph TD
 
 ## 🚀 Key Features
 
-*   **Managed Gateway:** A containerized Express.js server providing routing and system health endpoints.
-*   **Modern Frontend:** A responsive, glassmorphism-themed UI designed for real-time interaction.
-*   **Automation-First:** Includes `deploy.sh` and `cleanup.sh` for lifecycle management of cloud resources.
-*   **Scalability:** Designed to run with managed environments that support auto-scaling and serverless execution.
+*   **Managed Gateway:** A containerized Node.js (Alpine) Express server deployed on **Azure Container Apps**.
+*   **Modern Frontend:** A responsive, glassmorphism-themed UI hosted on **Azure Static Web Apps**.
+*   **Automated Pipeline:** Integrated GitHub Actions workflow for zero-touch deployment of the frontend assets.
+*   **Full Observability:** Automated Log Analytics workspace provisioning for monitoring container health and traffic.
 
 ---
 
@@ -38,44 +49,17 @@ graph TD
 | :--- | :--- |
 | **Cloud** | Microsoft Azure (Container Apps, Static Web Apps, ACR) |
 | **Service Layer** | Node.js, Express.js (v18+ Alpine) |
-| **Client Layer** | HTML5, CSS3 (Custom Design System), JavaScript |
-| **Infrastructure** | Docker, Azure CLI |
+| **Client Layer** | HTML5, CSS3 (Glassmorphism), Vanilla JavaScript |
+| **Infrastructure** | Docker, Azure CLI, GitHub Actions |
 
 ---
 
-## 🚦 Getting Started
+## 🚦 Deployment & Lifecycle
 
-### Prerequisites
-*   **Azure CLI** & **Docker Desktop** installed and running.
-*   A valid **Azure Subscription** (Azure for Students recommended).
+The project includes custom bash scripts for automated cloud lifecycle management:
 
-### Setup & Deployment
-1.  **Repository Setup:**
-    ```bash
-    git clone https://github.com/IsaraSE/CTSE-Lab07.git
-    cd CTSE-Lab07
-    ```
-
-2.  **Full Cloud Deployment:**
-    Execute the automated deployment script to provision and build all services:
-    ```bash
-    ./deploy.sh
-    ```
-
-3.  **Local Development:**
-    To run the gateway locally for testing:
-    ```bash
-    cd gateway && npm install && npm start
-    ```
-
----
-
-## 🧹 Resource Management
-
-Always decommission your resources after testing to avoid unnecessary cloud charges:
-```bash
-./cleanup.sh
-```
+1.  **Deployment:** `./deploy.sh` (Provisions RG, ACR, Environment, and Gateway).
+2.  **Cleanup:** `./cleanup.sh` (Interactive script to decommission all resources).
 
 ---
 
