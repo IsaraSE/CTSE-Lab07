@@ -11,11 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Determine API Base URL
-    // In local development, it's likely localhost:3000
-    // In production (Azure), it will be the Container App URL
     const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:3000'
-        : ''; // Will be set via REACT_APP_API_URL or relative path if configured
+        : 'https://gateway.calmbay-7e7116db.centralindia.azurecontainerapps.io';
 
     async function checkHealth() {
         try {
